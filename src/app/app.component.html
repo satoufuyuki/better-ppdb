@@ -51,7 +51,7 @@
 				</ng-template>
 			</div>
 		</form>
-		<div *ngIf="(registrant.itemsList ?? []).length > 0; then tableData else noEntries"></div>
+		<div *ngIf="registrantValuesEntries.length > 0; then tableData else noEntries"></div>
 		<ng-template #noEntries>
 			<div class="mx-auto my-5 text-center">
 				<h1 class="font-bold text-2xl mb-5">No data</h1>
