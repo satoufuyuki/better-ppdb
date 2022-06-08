@@ -14,7 +14,7 @@
   "private": true,
   "eslintConfig": {
     "extends": "@hazmi35/eslint-config/typescript",
-    "ignorePatterns": "dist/*"
+    "ignorePatterns": [".angular/*", "tailwind.config.js", "karma.conf.js"]
   },
   "dependencies": {
     "@angular/animations": "~13.2.0",
