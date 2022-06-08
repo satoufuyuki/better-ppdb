@@ -49,6 +49,21 @@ export class AppComponent implements OnInit {
             type: "SMA"
         },
         {
+            id: "20217765",
+            name: "SMAN 4 Karawang",
+            type: "SMA"
+        },
+        {
+            id: "20237386",
+            name: "SMAN 5 Karawang",
+            type: "SMA"
+        },
+        {
+            id: "69904548",
+            name: "SMAN 6 Karawang",
+            type: "SMA"
+        },
+        {
             id: "20217802",
             name: "SMKN 1 Karawang",
             type: "SMK"
