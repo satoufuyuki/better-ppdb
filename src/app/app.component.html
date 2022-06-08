@@ -1,0 +1,76 @@
+<body class="w-full flex justify-center my-5 text-white">
+	<div class="container w-[85%] my-5">
+		<span class="flex flex-row">
+			<h1 class="text-3xl font-bold">Better PPDB</h1>
+		</span>
+		<blockquote class="p-5 bg-[#61adff] my-5" style="border-left: 5px solid #017bff;">
+			<p>A better version of <a href="https://ppdb.disdik.jabarprov.go.id">ppdb.disdik.jabarprov.go.id</a> for monitoring purposes</p>
+			<p>Currently, it's only for personal use, the website is not intended for the public, and it's contents are incomplete</p>
+			<p>Source code: <a target="_blank" href="https://github.com/ZenShibata/better-ppdb" style="color: blue;">https://github.com/ZenShibata/better-ppdb</a></p>
+		</blockquote>
+		<blockquote class="mt-2 p-5 bg-[#61adff] my-5" style="border-left: 5px solid #017bff;">
+			<p>The data displayed on this page is the registrant's data, not the final result of the selection.</p>
+			<p>I removed pagination because why not</p>
+			<p>All data fetched from <a href="https://ppdb.disdik.jabarprov.go.id">ppdb.disdik.jabarprov.go.id</a> and owned by them</p>
+		</blockquote>
+		<form [formGroup]="form" class="flex flex-col lg:flex-row">
+			<!-- Template -->
+			<ng-template #loadingOptions>
+				<select class="form-select" id="color">
+					<option>Loading...</option>
+				  </select>
+			</ng-template>
+			<div class="md:mr-5">
+				<label class="block text-sm mb-1" for="color">Pilih sekolah</label>
+				<ng-container *ngIf="options.length > 0; then fetchedData else loadingOptions"></ng-container>
+				<ng-template #fetchedData>
+					<select [formControl]="schoolControl" class="form-select" id="color">
+						<option selected value="default">Pilih sekolah</option>
+						<option *ngFor="let item of availableSchools" value="{{item.id}}" id="{{item.id}}">{{item.name}}</option>
+					</select>
+				</ng-template>
+			</div>
+			<div class="md:mr-5">
+				<label class="block text-sm mb-1" for="color">Pilih jalur</label>
+				<div *ngIf="availableJalur.length > 0; then fetchedJalur else loadingOptions"></div>
+				<ng-template #fetchedJalur>
+					<select [formControl]="jalurControl" class="form-select" id="color">
+						<option selected value="default">Pilih jalur</option>
+						<option *ngFor="let item of availableJalur; let i = index" id="{{i}}-jalur" value="{{item.type}}">{{item.name}}</option>
+					</select>
+				</ng-template>
+			</div>
+			<div *ngIf="selectedSchool?.type === 'SMK'" class="md:mr-5 {{majorSelectionVisibility}}">
+				<label class="block text-sm mb-1" for="color">Pilih jurusan</label>
+				<div *ngIf="availableJalur.length > 0; then fetchedJurusan else loadingOptions"></div>
+				<ng-template #fetchedJurusan>
+					<select [formControl]="jurusanControl" class="form-select" id="color">
+						<option selected value="default">Pilih jurusan</option>
+						<option *ngFor="let item of availableJurusan; let i = index" id="{{i}}" value="{{item.major_id}}">{{item.name}}</option>
+					</select>
+				</ng-template>
+			</div>
+		</form>
+		<div *ngIf="(registrant.itemsList ?? []).length > 0; then tableData else noEntries"></div>
+		<ng-template #noEntries>
+			<div class="mx-auto my-5 text-center">
+				<h1 class="font-bold text-2xl mb-5">No data</h1>
+			</div>
+		</ng-template>
+		<ng-template #tableData>
+			<div class="max-w-full min-w-full overflow-x-scroll md:overflow-hidden">
+				<table class="rounded-t-lg m-5 bg-gray-800 text-gray-200">
+					<tr class="text-left border-b border-gray-300">
+						<th class="px-4 py-3" *ngFor="let item of registrantKeyEntries">{{item}}</th>
+					</tr>
+					<ng-container *ngFor="let item of registrantValuesEntries | values; let i = index">
+						<tr class="bg-gray-700 border-b border-gray-600">
+							<td class="px-4 py-3" *ngFor="let val of item">{{val}}</td>
+						</tr>
+					</ng-container>
+				</table>
+			</div>
+		</ng-template>
+	</div>
+</body>
+<router-outlet></router-outlet>
