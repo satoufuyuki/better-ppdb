@@ -148,7 +148,7 @@ export class AppComponent implements OnInit {
                         id: registrant.registration_number,
                         name: registrant.name,
                         firstOption: `${registrant.first_option.name} (${registrant.distance1}m)`,
-                        secondOption: `${registrant.second_option.name} (${registrant.distance2}m)`,
+                        secondOption: registrant.second_option ? `${registrant.second_option.name} (${registrant.distance2}m)` : "-",
                         score: registrant.score === 0 ? "-" : registrant.score
                     });
                 }
