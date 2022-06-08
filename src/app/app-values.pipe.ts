@@ -8,7 +8,6 @@ export class ValuesPipe implements PipeTransform {
         for (const value of values) {
             result.push(Object.values(value));
         }
-        console.log(result);
         return result;
     }
 }

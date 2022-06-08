@@ -92,7 +92,6 @@ export class AppComponent implements OnInit {
             if (this.registrant.itemsList?.length) {
                 this.parseRegistrant(this.registrant.itemsList);
             }
-            console.log(this.registrant);
             this.toggleOptions();
         });
         this.schoolControl.valueChanges.subscribe(value => {
