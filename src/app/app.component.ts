@@ -30,6 +30,7 @@ export class AppComponent implements OnInit {
     public registrant: { itemsList?: any[] } = {};
     public registrantKeyEntries: string[] = [];
     public registrantValuesEntries: {
+        no: number;
         id: string;
         name: string;
         firstOption: string;
@@ -67,6 +68,21 @@ export class AppComponent implements OnInit {
             id: "20217802",
             name: "SMKN 1 Karawang",
             type: "SMK"
+        },
+        {
+            id: "20217780",
+            name: "SMAN 1 Telukjambe",
+            type: "SMA"
+        },
+        {
+            id: "69915815",
+            name: "SMAN 2 Telukjambe Timur",
+            type: "SMA"
+        },
+        {
+            id: "20217763",
+            name: "SMAN 2 Karawang",
+            type: "SMA"
         }
     ];
 
@@ -136,6 +152,7 @@ export class AppComponent implements OnInit {
         switch (this.selectedSchool?.type ?? "") {
             case "SMA": {
                 this.registrantKeyEntries = [
+                    "No",
                     "Nomor Pendaftaran",
                     "Nama",
                     "Pilihan 1",
@@ -143,32 +160,40 @@ export class AppComponent implements OnInit {
                     "Score"
                 ];
                 this.registrantValuesEntries = [];
+                let i = 0;
+                data = data.sort((a: any, b: any) => a.distance1 - b.distance1);
                 for (const registrant of data) {
                     this.registrantValuesEntries.push({
+                        no: i + 1,
                         id: registrant.registration_number,
                         name: registrant.name,
                         firstOption: `${registrant.first_option.name} (${registrant.distance1}m)`,
                         secondOption: registrant.second_option ? `${registrant.second_option.name} (${registrant.distance2}m)` : "-",
                         score: registrant.score === 0 ? "-" : registrant.score
                     });
+                    i += 1;
                 }
                 break;
             }
             case "SMK": {
                 this.registrantKeyEntries = [
+                    "No",
                     "Nomor Pendaftaran",
                     "Nama",
                     "Pilihan 1",
                     "Pilihan 2"
                 ];
                 this.registrantValuesEntries = [];
+                let i = 0;
                 for (const registrant of data) {
                     this.registrantValuesEntries.push({
+                        no: i + 1,
                         id: registrant.registration_number,
                         name: registrant.name,
                         firstOption: `${registrant.first_option.name} (${registrant.distance1}m) ${registrant.score_a1 ? `(Skor: ${registrant.score_a1.toFixed(1)})` : ""}`,
                         secondOption: registrant.second_option ? `${registrant.second_option.name} (${registrant.distance2}m) ${registrant.score_a2 ? `(Skor: ${registrant.score_a2.toFixed(1)})` : ""}` : "-"
                     });
+                    i += 1;
                 }
                 break;
             }
