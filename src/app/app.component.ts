@@ -3,6 +3,7 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { Component, OnInit } from "@angular/core";
 import { FormControl, FormGroup } from "@angular/forms";
+import { firstValueFrom } from "rxjs";
 import { AppService, IPopulateOptionsResponse } from "./app.service";
 
 @Component({
@@ -91,7 +92,7 @@ export class AppComponent implements OnInit {
 
     public async ngOnInit(): Promise<any> {
         await Promise.all(this.availableSchools.map(async (school, i) => {
-            const response = await this.service.fetchOptions(school.id).toPromise();
+            const response = await firstValueFrom(this.service.fetchOptions(school.id));
             this.options[i] = response!.result;
         }));
         this.jalurControl.valueChanges.subscribe(async x => {
